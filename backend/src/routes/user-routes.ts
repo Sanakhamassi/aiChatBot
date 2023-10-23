@@ -1,9 +1,11 @@
 import { Router } from "express";
 import appRouter from "./index.js";
-import { getAllUsers, signUp } from "../controllers/user-controller.js";
-
+import { getAllUsers, signUp, login } from "../controllers/user-controller.js";
+import { loginValidator, signupValidator, validate } from "../utils/validators.js"
 const userRouter = Router();
 userRouter.get("/", getAllUsers)
-userRouter.post("/signup", signUp)
+userRouter.post("/signup", validate(signupValidator), signUp)
+userRouter.post("/login", validate(loginValidator), login)
 
 export default userRouter;
+//use middleware to validate inputs
